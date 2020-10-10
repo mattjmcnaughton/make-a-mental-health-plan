@@ -4,6 +4,7 @@ import { setupServer } from 'msw/node';
 import { cleanup, fireEvent, render, screen, waitForElement } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
+import { createMemoryHistory } from 'history';
 
 const server = setupServer(
   rest.post('/plans', (req, res, ctx) => {
@@ -19,19 +20,23 @@ afterEach(() => {
 afterAll(() => server.close());
 
 test('renders app', () => {
-  render(<App />);
-  expect(screen.getByText("make-a-mental-health-plan")).toBeInTheDocument();
+  const app = render(<App />);
+  expect(app.getByTestId("home-container")).toBeInTheDocument();
 });
 
-// Eventually, should have per component testing.
-test('fill in and submit form', async () => {
-  const app = render(<App />);
+test('router correct routes to different paths', () => {
+  const history = createMemoryHistory();
+  const routesToTestId = new Map([
+    ["/home", "home-container"],
+    ["/about", "about-container"],
+    ["/create-mental-health-plan", "create-mental-health-plan-container"]
+  ]);
 
-  userEvent.type(app.getByLabelText('username'), 'hi');
-  const submitButton = app.getByText('Submit');
-  fireEvent.click(submitButton);
+  routesToTestId.forEach((testId, route) => {
+    history.push(route);
 
-  // `findBy` supports `await`, while `getBy` does not. So its important we use `findBy`.
-  await app.findByTestId("button-submitted");
-  expect(app.getByText('Submit')).toBeDisabled();
+    const app = render(<App history={history}/>);
+
+    expect(app.getByTestId(testId)).toBeInTheDocument();
+  });
 });
