@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+// What is the safest way to limit the impact of any specific CSS framework?
+import "./App.sass";
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
