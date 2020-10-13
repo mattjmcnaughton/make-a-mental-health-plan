@@ -1,12 +1,13 @@
 use crate::create_rocket_server;
+use rocket::http::{ContentType, Status};
 use rocket::local::Client;
-use rocket::http::{Status, ContentType};
 
 #[test]
 fn post_plans() {
     let client = create_client();
 
-    let mut res = client.post("/plans")
+    let mut res = client
+        .post("/plans")
         .header(ContentType::JSON)
         .body(r#"{ "test": "hi" }"#)
         .dispatch();
@@ -20,7 +21,8 @@ fn post_plans() {
 fn post_plans_invalid_request() {
     let client = create_client();
 
-    let res = client.post("/plans")
+    let res = client
+        .post("/plans")
         .header(ContentType::JSON)
         .body(r#"{ "invalid_key": "hi" }"#)
         .dispatch();
