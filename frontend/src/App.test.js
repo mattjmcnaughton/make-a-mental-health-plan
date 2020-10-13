@@ -1,30 +1,19 @@
 import React from 'react';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-import { cleanup, fireEvent, render, screen, waitForElement } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { cleanup, render } from '@testing-library/react';
 import App from './App';
 import { createMemoryHistory } from 'history';
 
-const server = setupServer(
-  rest.post('/plans', (req, res, ctx) => {
-    return res(ctx.json({test: 'hi'}));
-  })
-);
-
-beforeAll(() => server.listen());
 afterEach(() => {
-  server.resetHandlers();
   cleanup();
 }); 
-afterAll(() => server.close());
 
-test('renders app', () => {
+test('renders App component', () => {
   const app = render(<App />);
   expect(app.getByTestId("home-container")).toBeInTheDocument();
 });
 
-test('router correct routes to different paths', () => {
+// for now, the `router` is part of the `App` component... that may not always be the case.
+test('router correctly routes', () => {
   const history = createMemoryHistory();
   const routesToTestId = new Map([
     ["/home", "home-container"],
