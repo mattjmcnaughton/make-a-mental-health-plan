@@ -24,3 +24,6 @@ matrix:
         - yarn lint
         - yarn prettier-check
         - yarn test
+
+notifications:
+  email: false
