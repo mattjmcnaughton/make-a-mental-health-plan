@@ -6,6 +6,7 @@ matrix:
         # A dependency I use (I think Rocket) requires nightly
         - nightly
       before_install:
+        - cd backend
         - rustup component add rustfmt
         - rustup component add clippy
       script:
@@ -14,7 +15,11 @@ matrix:
         - cargo clippy
         - cargo test
 
-    - language: javascript
+    - language: node_js
+      node_js:
+        - "10"
+      before_install:
+        - cd frontend
       script:
         - yarn lint
         - yarn prettier-check
