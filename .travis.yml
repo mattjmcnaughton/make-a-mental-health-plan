@@ -10,9 +10,9 @@ matrix:
         - rustup component add rustfmt
         - rustup component add clippy
       script:
-        - cargo build --release
         - cargo fmt -- --check
         - cargo clippy
+        - cargo build --release
         - cargo test
 
     - language: node_js
@@ -23,6 +23,7 @@ matrix:
       script:
         - yarn lint
         - yarn prettier-check
+        - yarn build
         - yarn test
 
 notifications:
