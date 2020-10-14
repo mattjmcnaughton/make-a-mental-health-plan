@@ -9,7 +9,7 @@ class Navbar extends React.Component {
     this.state = { navbarMenuIsExpanded: false };
   }
 
-  toggleNavbarMenu(event) {
+  toggleNavbarMenu() {
     this.setState({ navbarMenuIsExpanded: !this.state.navbarMenuIsExpanded });
   }
 

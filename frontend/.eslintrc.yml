@@ -16,4 +16,6 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: {}
+rules:
+  # Temporarily disable until we use typescript
+  'react/prop-types': 0
