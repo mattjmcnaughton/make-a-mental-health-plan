@@ -1,0 +1,26 @@
+---
+matrix:
+  include:
+    - language: rust
+      rust:
+        # A dependency I use (I think Rocket) requires nightly
+        - nightly
+      before_install:
+        - cd backend
+        - rustup component add rustfmt
+        - rustup component add clippy
+      script:
+        - cargo build --release
+        - cargo fmt -- --check
+        - cargo clippy
+        - cargo test
+
+    - language: node_js
+      node_js:
+        - "10"
+      before_install:
+        - cd frontend
+      script:
+        - yarn lint
+        - yarn prettier-check
+        - yarn test

@@ -1,10 +1,6 @@
 import React from "react";
 import { createBrowserHistory } from "history";
-import {
-  Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 
 import About from "./components/about";
 import CreateMentalHealthPlan from "./components/createMentalHealthPlan";
@@ -15,7 +11,7 @@ function App(props) {
   const urlMap = {
     aboutUrl: "/about",
     createMentalHealthPlanUrl: "/create-mental-health-plan",
-    homeUrl: "/"
+    homeUrl: "/",
   };
 
   const history = props.history || createBrowserHistory();
@@ -25,7 +21,7 @@ function App(props) {
   return (
     <Router history={history}>
       <div>
-        <Navbar urlMap={urlMap}/>
+        <Navbar urlMap={urlMap} />
 
         <Switch>
           <Route path={urlMap.aboutUrl}>
