@@ -1,19 +1,34 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
-class Navbar extends React.Component {
-  constructor(props) {
+interface NavbarProps {
+  urlMap: {
+    homeUrl: string;
+    aboutUrl: string;
+    createMentalHealthPlanUrl: string;
+  };
+}
+
+interface NavbarState {
+  navbarMenuIsExpanded: boolean;
+}
+
+class Navbar extends React.Component<NavbarProps, NavbarState> {
+  constructor(props: NavbarProps) {
     super(props);
 
     this.toggleNavbarMenu = this.toggleNavbarMenu.bind(this);
-    this.state = { navbarMenuIsExpanded: false };
   }
 
-  toggleNavbarMenu() {
+  state: NavbarState = {
+    navbarMenuIsExpanded: false,
+  };
+
+  toggleNavbarMenu(): void {
     this.setState({ navbarMenuIsExpanded: !this.state.navbarMenuIsExpanded });
   }
 
-  appendIsActiveWhenExpanded(classes) {
+  appendIsActiveWhenExpanded(classes: string): string {
     if (this.state.navbarMenuIsExpanded) {
       classes += " is-active";
     }
@@ -21,7 +36,7 @@ class Navbar extends React.Component {
     return classes;
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <nav
         data-testid="navbar"
@@ -33,6 +48,7 @@ class Navbar extends React.Component {
           <Link className="navbar-item" to="/">
             <img
               src="https://bulma.io/images/bulma-logo.png"
+              alt="logo"
               width="112"
               height="28"
             ></img>

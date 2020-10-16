@@ -4,6 +4,7 @@ env:
   jest: true
 extends:
   - 'eslint:recommended'
+  - 'plugin:@typescript-eslint/recommended'
   - 'plugin:react/recommended'
   - 'prettier'
 globals:
@@ -16,6 +17,6 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules:
-  # Temporarily disable until we use typescript
-  'react/prop-types': 0
+settings:
+  react:
+    version: detect
