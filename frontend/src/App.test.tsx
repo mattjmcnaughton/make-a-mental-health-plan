@@ -1,14 +1,16 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react";
-import App from "./App";
+import { BrowserRouter, Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+
+import App from "./App";
 
 afterEach(() => {
   cleanup();
 });
 
 test("renders App component", () => {
-  const app = render(<App />);
+  const app = render(<App routerComponent={BrowserRouter} />);
   expect(app.getByTestId("home-container")).toBeInTheDocument();
 });
 
@@ -24,7 +26,7 @@ test("router correctly routes", () => {
   routesToTestId.forEach((testId, route) => {
     history.push(route);
 
-    const app = render(<App history={history} />);
+    const app = render(<App routerComponent={Router} history={history} />);
 
     expect(app.getByTestId(testId)).toBeInTheDocument();
   });
