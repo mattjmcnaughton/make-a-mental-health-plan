@@ -48,6 +48,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
           <Link className="navbar-item" to="/">
             <img
               src="https://bulma.io/images/bulma-logo.png"
+              alt="logo"
               width="112"
               height="28"
             ></img>
