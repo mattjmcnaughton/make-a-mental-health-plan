@@ -1,33 +1,16 @@
 use crate::create_rocket_server;
-use rocket::http::{ContentType, Status};
+use rocket::http::Status;
 use rocket::local::Client;
 
 #[test]
-fn post_plans() {
+fn get_status() {
     let client = create_client();
 
-    let mut res = client
-        .post("/plans")
-        .header(ContentType::JSON)
-        .body(r#"{ "test": "hi" }"#)
-        .dispatch();
+    let mut res = client.get("/status").dispatch();
 
     assert_eq!(res.status(), Status::Ok);
     let body = res.body().unwrap().into_string().unwrap();
-    assert!(body.contains("hi"));
-}
-
-#[test]
-fn post_plans_invalid_request() {
-    let client = create_client();
-
-    let res = client
-        .post("/plans")
-        .header(ContentType::JSON)
-        .body(r#"{ "invalid_key": "hi" }"#)
-        .dispatch();
-
-    assert_eq!(res.status(), Status::UnprocessableEntity);
+    assert!(body.contains("ok"));
 }
 
 fn create_client() -> Client {
