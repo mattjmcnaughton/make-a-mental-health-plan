@@ -1,17 +1,19 @@
 import React, { ReactElement } from "react";
-import { BrowserHistory, createBrowserHistory } from "history";
-import { Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import { MemoryHistory } from "history";
 
 import About from "./components/about";
 import CreateMentalHealthPlan from "./components/createMentalHealthPlan";
 import Home from "./components/home";
 import Navbar from "./components/navbar";
 
-const defaultAppProps = {
-  history: createBrowserHistory(),
+// Setting the `routerComponent` to `React.ComponentType<any>` is pretty hacky... but I've already
+// spent more time than I want trying to figure out the types here...
+type AppProps = {
+  // eslint-disable-next-line
+  routerComponent: React.ComponentType<any>;
+  history?: MemoryHistory;
 };
-
-type AppProps = { history: BrowserHistory } & typeof defaultAppProps;
 
 function App(props: AppProps): ReactElement {
   const urlMap = {
@@ -23,7 +25,7 @@ function App(props: AppProps): ReactElement {
   // TODO: Decide if I want to extract an app router...
   // Right now, we won't, but we can down the line.
   return (
-    <Router history={props.history}>
+    <props.routerComponent history={props.history}>
       <div>
         <Navbar urlMap={urlMap} />
 
@@ -39,10 +41,8 @@ function App(props: AppProps): ReactElement {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </props.routerComponent>
   );
 }
-
-App.defaultProps = defaultAppProps;
 
 export default App;
