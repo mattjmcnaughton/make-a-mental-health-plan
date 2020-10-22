@@ -1,9 +1,18 @@
 import React, { ReactElement } from "react";
 
-function About(): ReactElement {
+type AboutProps = {
+  navbar?: ReactElement;
+  footer?: ReactElement;
+};
+
+function About(props: AboutProps): ReactElement {
   return (
-    <div data-testid="about-container">
-      <h2>About page</h2>
+    <div>
+      {props.navbar}
+      <div data-testid="about-container">
+        <h2>About page</h2>
+      </div>
+      {props.footer}
     </div>
   );
 }

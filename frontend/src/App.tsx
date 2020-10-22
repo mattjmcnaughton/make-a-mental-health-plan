@@ -4,6 +4,7 @@ import { MemoryHistory } from "history";
 
 import About from "./components/about";
 import CreateMentalHealthPlan from "./components/createMentalHealthPlan";
+import Footer from "./components/footer";
 import Home from "./components/home";
 import Navbar from "./components/navbar";
 
@@ -27,17 +28,15 @@ function App(props: AppProps): ReactElement {
   return (
     <props.routerComponent history={props.history}>
       <div>
-        <Navbar urlMap={urlMap} />
-
         <Switch>
           <Route path={urlMap.aboutUrl}>
-            <About />
+            <About navbar={<Navbar urlMap={urlMap} />} />
           </Route>
           <Route path={urlMap.createMentalHealthPlanUrl}>
-            <CreateMentalHealthPlan />
+            <CreateMentalHealthPlan navbar={<Navbar urlMap={urlMap} />} />
           </Route>
           <Route path={urlMap.homeUrl}>
-            <Home />
+            <Home navbar={<Navbar urlMap={urlMap} />} footer={<Footer />} />
           </Route>
         </Switch>
       </div>
